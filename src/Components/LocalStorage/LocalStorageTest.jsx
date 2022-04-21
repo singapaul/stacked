@@ -3,6 +3,7 @@ import { setLocalStorage, getLocalStorage } from "../../localStorage.js";
 
 const LocalStorageTest = () => {
   const [name, setName] = useState("");
+
   const mockData = [
     { name: "Paul", age: 1 },
     { name: "Dan", age: 11 },
@@ -14,13 +15,13 @@ const LocalStorageTest = () => {
 
   // 1. Stringify namez
   // 2. take new JSON value and set new local storage w/  new key
+
   useEffect(() => {
     setLocalStorage("Pauls", JSON.stringify(namez));
   }, [name]);
 
   const nameInput = (event) => {
     event.preventDefault();
-    console.log(event.target.name.value);
     setName(event.target.name.value);
     setLocalStorage("Paul", event.target.name.value);
   };
