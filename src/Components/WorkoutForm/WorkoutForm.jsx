@@ -30,34 +30,36 @@ const WorkoutForm = () => {
   };
 
   const postWorkout = async (postRequest) => {
-    const sampleData = {
-      workoutName: "Sarah",
-      lifts: [
-        {
-          lift: "bench",
-          reps: 2,
-          weight: 4,
-        },
-      ],
-    };
     let url = "https://stackedv2.nw.r.appspot.com/workout";
 
-    console.log(JSON.stringify(sampleData));
     console.log(postRequest);
-    fetch(url, {
+    // fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: postRequest,
+    // })
+    //   .then((response) => response.json())
+    //   .then((postRequest) => {
+    //     console.log("Success: ", postRequest);
+    //     console.log(postRequest);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+    console.log("start");
+    const res = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: postRequest,
-    })
-      .then((response) => response.json())
-      .then((postRequest) => {
-        console.log("Success: ", postRequest);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    });
+    console.log("midpoint");
+    console.log(res);
+    const data = await res.text(url);
+    console.log(data);
   };
 
   return (
