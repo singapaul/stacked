@@ -1,16 +1,27 @@
-import { type } from "@testing-library/user-event/dist/type";
 import "./WorkoutCards.scss";
-const WorkoutCards = ({ data }) => {
-  const displayToScreen = data.map((workout, index) => (
-    <div key={index} className="stuf">
-      <h2>{workout.name}</h2>
-      <p>{workout.type[0]}</p>
-      <p>{workout.reps}</p>
-      <p>{workout.weight}</p>
-    </div>
-  ));
 
-  return <div className="workoutCards">{displayToScreen}</div>;
+const WorkoutCards = ({ workout }) => {
+  // State management
+
+  return (
+    <div key={workout.id} className="liftCard">
+      <button>edit</button>
+      <button>delete</button>
+      <p>{workout.workoutName}</p>
+      <p>{workout.dateCreated}</p>
+      <div className="liftCard__lifts">
+        {workout.lifts.map((e, l) => {
+          return (
+            <div key={l} className="liftCard__lifts__lift">
+              <p>{e.lift}</p>
+              <p>reps: {e.reps}</p>
+              <p>weight (KGs): {e.weight}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default WorkoutCards;

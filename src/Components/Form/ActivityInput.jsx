@@ -15,11 +15,11 @@ const ActivityInput = () => {
     <div>
       <form onSubmit={submitForm}>
         <label htmlFor="name">Name</label>
-        <input type="text" name="name" />
-        <label htmlFor="weightType"></label>
+        <input aria-label="input" type="text" name="name" />
+        <label htmlFor="weightType">Weight Type</label>
         <select name="weightType" id="">
           <option value="">-Please select-</option>
-          <option value="shoulderPress">Shoulder Press</option>
+          <option value="shoulder Press">Shoulder Press</option>
           <option value="benchPress">Bench Press</option>
           <option value="squat">Squat</option>
           <option value="deadlift">Deadlift</option>
@@ -29,11 +29,11 @@ const ActivityInput = () => {
           <option value="bicep">Bicep Curl</option>
         </select>
         <label htmlFor="reps">Reps</label>
-        <input type="number" name="reps" />
+        <input aria-label="input" type="number" name="reps" />
         <label htmlFor="weight">Weight</label>
-        <input type="number" name="weight" />
+        <input aria-label="input" type="number" name="weight" />
 
-        <input type="submit" value="Submit" />
+        <input aria-label="input" type="submit" value="Submit" />
       </form>
     </div>
   );

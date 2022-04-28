@@ -1,5 +1,7 @@
 @use "../../Assets/SASS-variables.scss" as *;
 
-.workoutCards{
+.liftCard{
   border: solid 2px black;
+
+  .liftCard__lifts{color:red}
 }
