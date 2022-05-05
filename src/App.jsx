@@ -19,7 +19,7 @@ function App() {
   ]);
 
   const getWorkouts = async () => {
-    let url = "https://stackedv2.nw.r.appspot.com/allWorkouts";
+    let url = "http://localhost:8080/allWorkouts";
     try {
       const res = await fetch(url);
       const data = await res.json(url);

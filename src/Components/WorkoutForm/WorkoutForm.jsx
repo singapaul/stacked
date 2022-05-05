@@ -30,25 +30,7 @@ const WorkoutForm = () => {
   };
 
   const postWorkout = async (postRequest) => {
-    let url = "https://stackedv2.nw.r.appspot.com/workout";
-
-    console.log(postRequest);
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: postRequest,
-    // })
-    //   .then((response) => response.json())
-    //   .then((postRequest) => {
-    //     console.log("Success: ", postRequest);
-    //     console.log(postRequest);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-    console.log("start");
+    let url = "http://localhost:8080/workout";
     const res = await fetch(url, {
       method: "POST",
       headers: {
@@ -56,8 +38,6 @@ const WorkoutForm = () => {
       },
       body: postRequest,
     });
-    console.log("midpoint");
-    console.log(res);
     const data = await res.text(url);
     console.log(data);
   };
@@ -65,7 +45,7 @@ const WorkoutForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <label>Workout Name</label>
-      <input aria-label="input" type="text" name="name" />
+      <input required aria-label="input" type="text" name="name" />
       {formValues.map((element, index) => (
         <div className="form-inline" key={index}>
           <label htmlFor="lift">Lift</label>
@@ -73,6 +53,7 @@ const WorkoutForm = () => {
             onChange={(e) => handleChange(index, e)}
             value={element.name}
             name="lift"
+            required
           >
             <option value="">-Please select-</option>
             <option value="shoulderPress">Shoulder Press</option>
@@ -86,6 +67,7 @@ const WorkoutForm = () => {
           </select>
           <label>{`Weight (KGs)`}</label>
           <input
+            required
             type="number"
             name="weight"
             value={element.weight || ""}
@@ -93,6 +75,7 @@ const WorkoutForm = () => {
           />
           <label>Total reps</label>
           <input
+            required
             type="number"
             name="reps"
             value={element.reps || ""}
