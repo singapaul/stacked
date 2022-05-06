@@ -13,15 +13,6 @@ const WorkoutCards = ({ workout }) => {
     setWName(e.target.value);
   };
 
-  const handleClick = (i, e) => {
-    // will write the fetch in here
-    console.log(wName);
-    console.log(JSON.stringify(wName));
-    const inlet = `{"workoutName": "${wName}", "lifts" : []}`;
-    console.group(inlet);
-    putName(27, JSON.stringify(inlet));
-  };
-
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
     console.log(e);
@@ -105,7 +96,15 @@ const WorkoutCards = ({ workout }) => {
     console.log(editMode);
   };
 
-  const putName = async (workoutID, workoutName) => {
+  const handleClick = (i, e) => {
+    // will write the fetch in here
+    console.log(wName);
+    console.log(JSON.stringify(wName));
+    const inlet = `{"workoutName" : "${wName}"}`;
+    console.group(inlet);
+    editWorkoutName(27, inlet);
+  };
+  const editWorkoutName = async (workoutID, workoutName) => {
     let url = `http://localhost:8080/workout/${workoutID}`;
     console.log(url);
     const res = await fetch(url, {
@@ -115,7 +114,7 @@ const WorkoutCards = ({ workout }) => {
       },
       body: workoutName,
     });
-    const data = await res.JSON(url);
+    const data = await res.text(url);
     console.log(data);
   };
 
