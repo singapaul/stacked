@@ -1,6 +1,7 @@
-import "./WorkoutCards.scss";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { useParams } from "react-router-dom";
+import "./Detail.scss";
+import { useEffect, useState } from "react";
 import {
   addLift,
   putLift,
@@ -10,8 +11,32 @@ import {
   validateInput,
 } from "../../funcs/functions.js";
 
-const WorkoutCards = ({ workout }) => {
-  // State management
+const Detail2 = () => {
+  const [workout, setWorkout] = useState({
+    workoutId: 1,
+    workoutName: "na",
+    dateCreated: "2022-05-06T14:58:36.271+00:00",
+    lifts: [
+      { liftId: 1, reps: 1, weight: 1, lift: "deadlift" },
+      { liftId: 1, reps: 1, weight: 1, lift: "squat" },
+      { liftId: 1, reps: 1, weight: 1, lift: "deadlift" },
+    ],
+  });
+
+  // fetch request to get the workout
+  const { workoutId } = useParams();
+  const getWorkout = async () => {
+    let url = `http://localhost:8080/workout/${workoutId}`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json(url);
+      setWorkout(data);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(JSON.stringify(workout));
+  };
+
   const [editMode, setEditMode] = useState(false);
   const [formValues, setFormValues] = useState(workout.lifts);
   const [wName, setWName] = useState(workout.workoutName);
@@ -23,12 +48,16 @@ const WorkoutCards = ({ workout }) => {
   const editForm = () => {
     setEditMode(!editMode);
     console.log(editMode);
+    setFormValues(workout.lifts);
   };
   const handleClick = (i, e) => {
     // will write the fetch in here
     const inlet = `{"workoutName" : "${wName}"}`;
     editWorkoutName(workout.workoutId, inlet);
   };
+  useEffect(() => {
+    getWorkout();
+  }, []);
   const deleteRequest = (event) => {
     alert("You're about to permanently delete these gains");
     deleteFetch(event.target.value);
@@ -38,19 +67,24 @@ const WorkoutCards = ({ workout }) => {
     let newFormValues = [...formValues];
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
+    console.log(formValues);
   };
   let addFormFields = () => {
+    console.log(formValues);
     setFormValues([...formValues, { lift: "", weight: "", reps: "" }]);
   };
   let removeFormFields = (i, j) => {
     // Write the delete fetch here
-    console.log(i);
-    console.log(formValues[i]);
-    console.log(formValues[i].liftId);
-    deleteLiftFetch(formValues[i].liftId);
-    let newFormValues = [...formValues];
-    newFormValues.splice(i, 1);
-    setFormValues(newFormValues);
+    const newformValues = formValues;
+    newformValues.splice(i, 1);
+    setFormValues(newformValues);
+    // console.log(formValues[i].liftId);
+    // deleteLiftFetch(formValues[i].liftId);
+    // let newFormValues = [...formValues];
+    // newFormValues.splice(i, 1);
+    // console.log(newFormValues);
+    // setFormValues(newFormValues);
+    console.log(formValues);
   };
 
   // When you press save
@@ -188,27 +222,15 @@ const WorkoutCards = ({ workout }) => {
     </>
   );
 
-  console.log(workout.workoutId);
   return (
-    <>
-      <div key={workout.id} className="liftCard">
-        <button onClick={editForm}>edit</button>
-        <button value={workout.workoutId} onClick={deleteRequest}>
-          delete workout
-        </button>
-        {editMode ? adjustWorkoutVTwo : displayWorkout}
-      </div>
-      <Link to={`/workout/${workout.workoutId}`}>
-        <div key={workout.id} className="liftCard">
-          <button onClick={editForm}>edit</button>
-          <button value={workout.workoutId} onClick={deleteRequest}>
-            delete workout
-          </button>
-          {editMode ? adjustWorkoutVTwo : displayWorkout}
-        </div>
-      </Link>
-    </>
+    <div key={workout.id} className="liftCard">
+      <button onClick={editForm}>edit</button>
+      <button value={workout.workoutId} onClick={deleteRequest}>
+        delete workout
+      </button>
+      {editMode ? adjustWorkoutVTwo : displayWorkout}
+    </div>
   );
 };
 
-export default WorkoutCards;
+export default Detail2;

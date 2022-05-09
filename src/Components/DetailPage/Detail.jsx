@@ -89,22 +89,44 @@ const Detail = () => {
   };
 
   const addFormFields = () => {
-    setWorkout([, { lift: "", weight: "", reps: "" }]);
+    // setWorkout([...formValues, { lift: "", weight: "", reps: "" }]);
     console.log("pressed");
     console.log(formValues);
+    setWorkout({
+      workoutId: workout.workoutId,
+      workoutName: workout.workoutName,
+      dateCreated: workout.dateCreated,
+      lifts: [...workout.lifts, { lift: "", weight: "", reps: "" }],
+    });
     console.log(workout);
   };
 
-  const removeFormFields = (i, j) => {
-    // Write the delete fetch here
-    console.log(i);
-    console.log(formValues[i]);
-    console.log(formValues[i].liftId);
-    deleteLiftFetch(formValues[i].liftId);
-    let newFormValues = [...formValues];
-    newFormValues.splice(i, 1);
-    setFormValues(newFormValues);
-  };
+  // const removeFormFields = (i) => {
+  //   // Write the delete fetch here
+  //   console.log(workout.lifts[i]);
+  //   // deleteLiftFetch(workout.lifts[i].liftId);
+  //   let newWorkoutArray = [...workout.lifts];
+  //   newWorkoutArray.splice(i, 1);
+  //   console.log(newWorkoutArray);
+
+  //   setWorkout({
+  //     workoutId: workout.workoutId,
+  //     workoutName: workout.workoutName,
+  //     dateCreated: workout.dateCreated,
+  //     lifts: [
+  //       newWorkoutArray.map((obj) => {,
+  //         return (liftId: obj.liftId, reps: );
+  //       }),
+  //     ],
+  //   });
+
+  //   console.log(workout);
+  // console.log(formValues[i].liftId);
+  // deleteLiftFetch(formValues[i].liftId);
+  // let newFormValues = [...formValues];
+  // newFormValues.splice(i, 1);
+  // setFormValues(newFormValues);
+  // };
 
   const displayWorkout = (
     <>
@@ -177,7 +199,7 @@ const Detail = () => {
                 />
               </p>
 
-              <button onClick={(e) => removeFormFields(l, e)}>remove</button>
+              {/* <button onClick={(e) => removeFormFields(l, e)}>remove</button> */}
               <button onClick={(e) => handleSubmit(l, e)}>save</button>
             </div>
           );

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import NavBar from "./Components/NavBar/NavBar";
 import Home from "./Components/HomePage/Home";
-import Detail from "./Components/DetailPage/Detail";
+import Detail2 from "./Components/DetailPage/Detail2";
 const baseURL = "/stacked";
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route
           path="/workout/:workoutId"
-          element={<Detail workoutArray={workouts} />}
+          element={<Detail2 workoutArray={workouts} />}
         />
       </Routes>
     </Router>
