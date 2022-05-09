@@ -1,0 +1,17 @@
+.greeting {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: solid 2px black;
+  align-items: center;
+
+  .greeting__greet {
+  }
+
+  .greeting__photo {
+    border-radius: 50%;
+    object-fit: cover;
+    height:105px;
+    width: 105px;
+  }
+}

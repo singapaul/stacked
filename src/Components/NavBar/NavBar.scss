@@ -1,10 +1,120 @@
-@use "../../Assets/SASS-variables.scss" as *;
 
-.navBar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  font-size: $font-size-large;
-  border: solid black 2px;
-};
+.navbar {
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  &--active {
+    height: 100vh;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    &-button {
+      background: transparent;
+      border: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 100%;
+
+    &-item {
+      padding: 21px 0;
+      text-decoration: none;
+      border-bottom: 1px solid #f7f7f7;
+      width: 100%;
+      text-align: right;
+
+      &--active {
+        font-weight: bold;
+      }
+
+      &-button {
+        display: flex;
+        align-items: center;
+        background: none;
+        border: none;
+        font-size: inherit;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      &--dropdown {
+        position: relative;
+        background: none;
+      }
+
+      &-arrow {
+        margin-left: 0.75rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1084px) {
+  .navbar {
+    &__container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    &__nav {
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      gap: 50px;
+
+      &-item {
+        text-align: center;
+        white-space: nowrap;
+        border: none;
+        padding: 0;
+        width: fit-content;
+        border-style: none;
+
+        &:first-child {
+          margin-left: 50px;
+        }
+
+        &--phone {
+          margin-left: auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 12px;
+        }
+      }
+    }
+  }
+
+  .active {
+    border-style: none;
+    .navbar__nav-item-button {
+      border-style: none;
+      border: none;
+    }
+  }
+}

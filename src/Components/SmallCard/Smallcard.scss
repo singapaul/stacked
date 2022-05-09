@@ -1,0 +1,45 @@
+.smallCard {
+  height: 90px;
+  width: 100px;
+  border: solid 2px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  .smallCard__icon {
+    font-size: 2em;
+  }
+
+  .smallCard__desc {
+    font-size: 0.6em;
+    font-weight: bold;
+  }
+
+  .smallCard__data {
+    font-size: 0.9em;
+  }
+}
+
+.largeCard {
+  height: 90px;
+  width: 366px;
+  border: solid 2px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  .smallCard__icon {
+    font-size: 2em;
+  }
+
+  .smallCard__desc {
+    font-size: 0.6em;
+    font-weight: bold;
+  }
+
+  .smallCard__data {
+    font-size: 0.9em;
+  }
+}

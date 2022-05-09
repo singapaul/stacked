@@ -1,23 +1,13 @@
 import "./App.css";
-import Graphs from "./Components/Graphs/Graphs";
-import NavBar from "./Components/NavBar/NavBar";
-import WorkoutForm from "./Components/WorkoutForm/WorkoutForm";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Grid from "./Components/Grid/Grid";
+import NavBar from "./Components/NavBar/NavBar";
+import Home from "./Components/HomePage/Home";
+import Detail from "./Components/DetailPage/Detail";
+const baseURL = "/stacked";
 
 function App() {
-  const [workouts, setWorkouts] = useState([
-    {
-      workoutId: 1,
-      workoutName: "Bay",
-      dateCreated: "2022-04-25T16:55:44.787+00:00",
-      lifts: [
-        { liftId: 1, reps: 2, weight: 4, lift: "bench" },
-        { liftId: 1, reps: 2, weight: 4, lift: "bench" },
-      ],
-    },
-  ]);
-
+  const [workouts, setWorkouts] = useState([]);
   const getWorkouts = async () => {
     let url = "http://localhost:8080/allWorkouts";
     try {
@@ -35,12 +25,16 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <Router basename={baseURL}>
       <NavBar />
-      <WorkoutForm />
-      <Grid workouts={workouts} />
-      <Graphs />
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/workout/:workoutId"
+          element={<Detail workoutArray={workouts} />}
+        />
+      </Routes>
+    </Router>
   );
 }
 

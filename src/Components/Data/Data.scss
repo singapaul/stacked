@@ -1,0 +1,15 @@
+.Data {
+  display: grid;
+  border: 2px solid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content:center;
+  justify-items: center;
+  align-items: center;
+  width: 400px;
+
+
+.Data__big{grid-area: 1/1/2/4;}
+
+
+}

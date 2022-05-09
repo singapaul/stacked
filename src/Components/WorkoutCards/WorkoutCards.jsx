@@ -1,30 +1,47 @@
 import "./WorkoutCards.scss";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  addLift,
+  putLift,
+  editWorkoutName,
+  deleteLiftFetch,
+  deleteFetch,
+  validateInput,
+} from "../../funcs/functions.js";
 
 const WorkoutCards = ({ workout }) => {
   // State management
   const [editMode, setEditMode] = useState(false);
-
-  // code for editing the form
   const [formValues, setFormValues] = useState(workout.lifts);
   const [wName, setWName] = useState(workout.workoutName);
 
+  // code for editing the form
   const handleName = (e) => {
     setWName(e.target.value);
+  };
+  const editForm = () => {
+    setEditMode(!editMode);
+    console.log(editMode);
+  };
+  const handleClick = (i, e) => {
+    // will write the fetch in here
+    const inlet = `{"workoutName" : "${wName}"}`;
+    editWorkoutName(workout.workoutId, inlet);
+  };
+  const deleteRequest = (event) => {
+    alert("You're about to permanently delete these gains");
+    deleteFetch(event.target.value);
   };
 
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
-    console.log(e);
-    console.log(i);
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
   };
-
   let addFormFields = () => {
     setFormValues([...formValues, { lift: "", weight: "", reps: "" }]);
   };
-
   let removeFormFields = (i, j) => {
     // Write the delete fetch here
     console.log(i);
@@ -36,17 +53,6 @@ const WorkoutCards = ({ workout }) => {
     setFormValues(newFormValues);
   };
 
-  const validateInput = (weight, rep) => {
-    if (weight === "" || rep === "") {
-      alert("Please enter all fields");
-      console.log("false");
-      return false;
-    }
-
-    // other validations
-
-    return true;
-  };
   // When you press save
   let handleSubmit = (event, index) => {
     // event.preventDefault();
@@ -63,81 +69,6 @@ const WorkoutCards = ({ workout }) => {
     } else {
       putLift(JSONLift, idLift);
     }
-  };
-
-  const addLift = async (postRequest, id) => {
-    let url = `http://localhost:8080/lift/${id}`;
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: postRequest,
-    });
-    const data = await res.text(url);
-    console.log(data);
-  };
-
-  const putLift = async (putRequest, idLift) => {
-    let url = `http://localhost:8080/lift/${idLift}`;
-    const res = await fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: putRequest,
-    });
-    const data = await res.text(url);
-    console.log(data);
-  };
-
-  const editForm = () => {
-    setEditMode(!editMode);
-    console.log(editMode);
-  };
-
-  const handleClick = (i, e) => {
-    // will write the fetch in here
-    console.log(wName);
-    console.log(JSON.stringify(wName));
-    const inlet = `{"workoutName" : "${wName}"}`;
-    console.group(inlet);
-    editWorkoutName(27, inlet);
-  };
-  const editWorkoutName = async (workoutID, workoutName) => {
-    let url = `http://localhost:8080/workout/${workoutID}`;
-    console.log(url);
-    const res = await fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: workoutName,
-    });
-    const data = await res.text(url);
-    console.log(data);
-  };
-
-  const deleteRequest = (event) => {
-    alert("You're about to permanently delete these gains");
-    deleteFetch(event.target.value);
-  };
-
-  const deleteLiftFetch = async (id) => {
-    let url = `http://localhost:8080/lift/${id}`;
-    const res = await fetch(url, {
-      method: "DELETE",
-    });
-    const data = await res.text(url);
-  };
-
-  const deleteFetch = async (id) => {
-    let url = `http://localhost:8080/workout/${id}`;
-    const res = await fetch(url, {
-      method: "DELETE",
-    });
-    const data = await res.text(url);
-    console.log(data);
   };
 
   const adjustWorkoutVTwo = (
@@ -257,14 +188,19 @@ const WorkoutCards = ({ workout }) => {
     </>
   );
 
+  console.log(workout.workoutId);
   return (
-    <div key={workout.id} className="liftCard">
-      <button onClick={editForm}>edit</button>
-      <button value={workout.workoutId} onClick={deleteRequest}>
-        delete workout
-      </button>
-      {editMode ? adjustWorkoutVTwo : displayWorkout}
-    </div>
+    <>
+      <Link to={`/workout/${workout.workoutId}`}>
+        <div key={workout.id} className="liftCard">
+          <button onClick={editForm}>edit</button>
+          <button value={workout.workoutId} onClick={deleteRequest}>
+            delete workout
+          </button>
+          {editMode ? adjustWorkoutVTwo : displayWorkout}
+        </div>
+      </Link>
+    </>
   );
 };
 
