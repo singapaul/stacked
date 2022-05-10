@@ -1,14 +1,12 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./Detail.scss";
 import { useEffect, useState } from "react";
 import {
   addLift,
   putLift,
-  editWorkoutName,
   deleteLiftFetch,
   deleteFetch,
-  validateInput,
 } from "../../funcs/functions.js";
 
 const Detail2 = () => {
@@ -21,12 +19,15 @@ const Detail2 = () => {
 
   // fetch request to get the workout
   const { workoutId } = useParams();
+  let navigate = useNavigate();
+
   const getWorkout = async () => {
     let url = `http://localhost:8080/workout/${workoutId}`;
     try {
       const res = await fetch(url);
       const data = await res.json(url);
       setWorkout(data);
+      setInputList(data.lifts);
     } catch (error) {
       console.log(error);
     }
@@ -34,198 +35,147 @@ const Detail2 = () => {
   };
 
   const [editMode, setEditMode] = useState(false);
-  const [formValues, setFormValues] = useState(workout.lifts);
-  const [wName, setWName] = useState(workout.workoutName);
+  const [inputList, setInputList] = useState(workout.lifts);
 
-  // code for editing the form
-  const handleName = (e) => {
-    setWName(e.target.value);
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    const list = [...inputList];
+    list[index][name] = value;
+    setInputList(list);
   };
+
+  // handle click event of the Remove button
+  const handleRemoveClick = (index) => {
+    console.log(index);
+    const list = [...inputList];
+    console.log(list[index].liftId);
+    deleteLiftFetch(list[index].liftId);
+    list.splice(index, 1);
+    setInputList(list);
+  };
+
+  const deleteWorkout = (event) => {
+    console.log(event.target.value);
+    deleteFetch(event.target.value);
+    console.log("deleted");
+    let path = "/";
+    navigate(path);
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    setInputList([
+      ...inputList,
+      { liftId: "null", lift: "", weight: "", reps: "" },
+    ]);
+  };
+
   const editForm = () => {
     setEditMode(!editMode);
-    console.log(editMode);
-    setFormValues(workout.lifts);
   };
-  const handleClick = (i, e) => {
-    // will write the fetch in here
-    const inlet = `{"workoutName" : "${wName}"}`;
-    editWorkoutName(workout.workoutId, inlet);
-  };
+
   useEffect(() => {
     getWorkout();
   }, []);
-  const deleteRequest = (event) => {
-    alert("You're about to permanently delete these gains");
-    deleteFetch(event.target.value);
-  };
-
-  let handleChange = (e, index) => {
-    const { name, value } = e.target;
-    const newFormValue = [...formValues];
-    newFormValue[index][name] = value;
-    setFormValues(newFormValue);
-  };
-  let addFormFields = () => {
-    setFormValues([...formValues, { lift: "", weight: "", reps: "" }]);
-  };
-
-  let removeFormFields = (index) => {
-    console.log(index);
-    const list = [...formValues];
-    list.splice(index, 1);
-    console.log(list);
-    setFormValues(list);
-  };
 
   // When you press save
   let handleSubmit = (event, index) => {
-    // event.preventDefault();
-    console.log(formValues[event].weight);
-    if (!validateInput(formValues[event].weight, formValues[event].reps)) {
-      return;
-    }
-    const newLift = formValues[event];
-    const idLift = formValues[event].liftId;
-    const idWorkout = workout.workoutId;
+    event.preventDefault();
+    const newLift = inputList[index];
     const JSONLift = JSON.stringify(newLift);
-    if (workout.lifts.length - (event + 1) < 0) {
-      addLift(JSONLift, idWorkout);
+    const liftIdVal = newLift.liftId;
+
+    if (liftIdVal == null) {
+      addLift(JSONLift, workout.workoutId);
     } else {
-      putLift(JSONLift, idLift);
+      putLift(JSONLift, newLift.liftId);
     }
   };
-
-  const adjustWorkoutVTwo = (
-    <>
-      <button
-        onClick={() => {
-          console.log(formValues);
-        }}
-      >
-        log form values
-      </button>
-
-      <input
-        required
-        type="text"
-        defaultValue={workout.workoutName}
-        onChange={(e) => handleName(e)}
-      />
-      <button onClick={(e) => handleClick(e)}>save workout changes</button>
-      <table>
-        <tbody>
-          {" "}
-          <tr>
-            <th>Lift Id</th>
-            <th>Lift</th>
-            <th>Weight(KGs)</th>
-            <th>Reps</th>
-            <th>Buttons</th>
-          </tr>
-          {formValues.map((x, i) => {
-            return (
-              <tr key={i}>
-                <td>{x.liftId}</td>
-                <td name="name">
-                  <select
-                    required
-                    onChange={(e) => handleChange(e, i)}
-                    name="lift"
-                    defaultValue={x.lift}
-                  >
-                    <option value="">-Please select-</option>
-                    <option value="shoulderPress">Shoulder Press</option>
-                    <option value="benchPress">Bench Press</option>
-                    <option value="squat">Squat</option>
-                    <option value="deadlift">Deadlift</option>
-                    <option value="row">Row</option>
-                    <option value="splitsquat">Split squat</option>
-                    <option value="lat">Lat Pulldown</option>
-                    <option value="bicep">Bicep Curl</option>
-                  </select>
-                </td>
-                <td>
-                  <input
-                    onChange={(e) => handleChange(e, i)}
-                    defaultValue={x.weight}
-                    type="number"
-                    name="weight"
-                    required
-                  />
-                </td>
-                <td>
-                  <input
-                    onChange={(e) => handleChange(e, i)}
-                    defaultValue={x.reps}
-                    type="number"
-                    name="reps"
-                    required
-                  />
-                </td>
-
-                <td>
-                  {formValues.length !== 1 && (
-                    <button
-                      className="mr10"
-                      onClick={() => removeFormFields(i)}
-                    >
-                      Remove
-                    </button>
-                  )}
-                  {formValues.length - 1 === i && (
-                    <button onClick={addFormFields}>Add</button>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <p>Workout ID: {workout.workoutId}</p>
-      <p>{workout.dateCreated}</p>
-    </>
-  );
 
   const displayWorkout = (
     <>
       <p>{workout.workoutName}</p>
       <div className="liftCard__lifts">
-        {
-          <table>
-            <tbody>
-              <tr>
-                <th>lift id</th>
-                <th>Lift</th>
-                <th>Weight(KGs)</th>
-                <th>Reps</th>
-              </tr>
-              {workout.lifts.map((e, l) => {
-                return (
-                  <tr key={l}>
-                    <td>{e.liftId}</td>
-                    <td>{e.lift}</td>
-                    <td>{e.weight}</td>
-                    <td>{e.reps}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        }
+        {workout.lifts.map((e, l) => {
+          return (
+            <div key={l}>
+              <p>lift id: {e.liftId}</p>
+              <p>Weight: {e.lift}</p>
+              <p>KGs: {e.weight}</p>
+              <p>Reps: {e.reps}</p>
+            </div>
+          );
+        })}
       </div>
+      <div>+ lift</div>
       <p>Workout ID: {workout.workoutId}</p>
       <p>{workout.dateCreated}</p>
+      <button onClick={editForm}>edit</button>
     </>
+  );
+
+  const adjustWorkoutVTwo = (
+    <div className="App">
+      <h1>{workout.workoutName}</h1>
+      <p>{workout.workoutId}</p>
+      <form action="">
+        {inputList.map((x, i) => {
+          return (
+            <div key={i} className="liftCard__lifts">
+              <input
+                required
+                name="lift"
+                placeholder="Select lift"
+                value={x.lift}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+              <input
+                required
+                className="ml10"
+                name="weight"
+                placeholder="Enter weight"
+                value={x.weight}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+              <input
+                required
+                className="ml10"
+                name="reps"
+                placeholder="Enter reps"
+                value={x.reps}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+              <div className="btn-box">
+                {inputList.length !== 1 && (
+                  <button className="mr10" onClick={(e) => handleSubmit(e, i)}>
+                    Save
+                  </button>
+                )}
+                {inputList.length !== 1 && (
+                  <button className="mr10" onClick={() => handleRemoveClick(i)}>
+                    Remove
+                  </button>
+                )}
+                {inputList.length - 1 === i && (
+                  <button onClick={handleAddClick}>Add</button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </form>
+      <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
+      <button onClick={editForm}>edit</button>
+      <button value={workout.workoutId} onClick={deleteWorkout}>
+        delete workout
+      </button>
+    </div>
   );
 
   return (
     <div key={workout.id} className="liftCard">
-      <button onClick={editForm}>edit</button>
-      <button value={workout.workoutId} onClick={deleteRequest}>
-        delete workout
-      </button>
-      {editMode ? adjustWorkoutVTwo : displayWorkout}
-      <div style={{ marginTop: 20 }}>{JSON.stringify(formValues)}</div>
+      {editMode ? displayWorkout : adjustWorkoutVTwo}
     </div>
   );
 };
