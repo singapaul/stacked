@@ -16,11 +16,7 @@ const Detail2 = () => {
     workoutId: 1,
     workoutName: "na",
     dateCreated: "2022-05-06T14:58:36.271+00:00",
-    lifts: [
-      { liftId: 1, reps: 1, weight: 1, lift: "deadlift" },
-      { liftId: 1, reps: 1, weight: 1, lift: "squat" },
-      { liftId: 1, reps: 1, weight: 1, lift: "deadlift" },
-    ],
+    lifts: [],
   });
 
   // fetch request to get the workout
@@ -63,28 +59,22 @@ const Detail2 = () => {
     deleteFetch(event.target.value);
   };
 
-  let handleChange = (i, e) => {
-    let newFormValues = [...formValues];
-    newFormValues[i][e.target.name] = e.target.value;
-    setFormValues(newFormValues);
-    console.log(formValues);
+  let handleChange = (e, index) => {
+    const { name, value } = e.target;
+    const newFormValue = [...formValues];
+    newFormValue[index][name] = value;
+    setFormValues(newFormValue);
   };
   let addFormFields = () => {
-    console.log(formValues);
     setFormValues([...formValues, { lift: "", weight: "", reps: "" }]);
   };
-  let removeFormFields = (i, j) => {
-    // Write the delete fetch here
-    const newformValues = formValues;
-    newformValues.splice(i, 1);
-    setFormValues(newformValues);
-    // console.log(formValues[i].liftId);
-    // deleteLiftFetch(formValues[i].liftId);
-    // let newFormValues = [...formValues];
-    // newFormValues.splice(i, 1);
-    // console.log(newFormValues);
-    // setFormValues(newFormValues);
-    console.log(formValues);
+
+  let removeFormFields = (index) => {
+    console.log(index);
+    const list = [...formValues];
+    list.splice(index, 1);
+    console.log(list);
+    setFormValues(list);
   };
 
   // When you press save
@@ -132,16 +122,16 @@ const Detail2 = () => {
             <th>Reps</th>
             <th>Buttons</th>
           </tr>
-          {formValues.map((e, index) => {
+          {formValues.map((x, i) => {
             return (
-              <tr key={index}>
-                <td>{e.liftId}</td>
+              <tr key={i}>
+                <td>{x.liftId}</td>
                 <td name="name">
                   <select
                     required
-                    onChange={(e) => handleChange(index, e)}
+                    onChange={(e) => handleChange(e, i)}
                     name="lift"
-                    defaultValue={e.lift}
+                    defaultValue={x.lift}
                   >
                     <option value="">-Please select-</option>
                     <option value="shoulderPress">Shoulder Press</option>
@@ -156,8 +146,8 @@ const Detail2 = () => {
                 </td>
                 <td>
                   <input
-                    onChange={(e) => handleChange(index, e)}
-                    defaultValue={e.weight}
+                    onChange={(e) => handleChange(e, i)}
+                    defaultValue={x.weight}
                     type="number"
                     name="weight"
                     required
@@ -165,8 +155,8 @@ const Detail2 = () => {
                 </td>
                 <td>
                   <input
-                    onChange={(e) => handleChange(index, e)}
-                    defaultValue={e.reps}
+                    onChange={(e) => handleChange(e, i)}
+                    defaultValue={x.reps}
                     type="number"
                     name="reps"
                     required
@@ -174,17 +164,23 @@ const Detail2 = () => {
                 </td>
 
                 <td>
-                  <button onClick={(e) => removeFormFields(index, e)}>
-                    remove
-                  </button>
-                  <button onClick={(e) => handleSubmit(index, e)}>save</button>
+                  {formValues.length !== 1 && (
+                    <button
+                      className="mr10"
+                      onClick={() => removeFormFields(i)}
+                    >
+                      Remove
+                    </button>
+                  )}
+                  {formValues.length - 1 === i && (
+                    <button onClick={addFormFields}>Add</button>
+                  )}
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <button onClick={addFormFields}>ADD Lift</button>
       <p>Workout ID: {workout.workoutId}</p>
       <p>{workout.dateCreated}</p>
     </>
@@ -229,6 +225,7 @@ const Detail2 = () => {
         delete workout
       </button>
       {editMode ? adjustWorkoutVTwo : displayWorkout}
+      <div style={{ marginTop: 20 }}>{JSON.stringify(formValues)}</div>
     </div>
   );
 };
