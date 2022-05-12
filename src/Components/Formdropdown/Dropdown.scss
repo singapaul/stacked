@@ -1,0 +1,9 @@
+@use "../../Assets/SASS-variables.scss" as *;
+
+.dropdown-wrapper {
+  border: solid 2px black;
+  border-radius: $border-radius;
+  padding: $standard-padding;
+  background-image: $light-card-background-gradient;
+
+}

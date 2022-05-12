@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import "./WorkoutForm.scss";
 
-const WorkoutForm = () => {
-  const [formValues, setFormValues] = useState([]);
+const WorkoutForm = ({ showDropdown }) => {
+  const [formValues, setFormValues] = useState([
+    { lift: "", weight: "", reps: "" },
+  ]);
 
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
@@ -42,66 +45,84 @@ const WorkoutForm = () => {
     console.log(data);
   };
 
+  const formStyle = showDropdown ? "active" : "";
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Workout Name</label>
-      <input required aria-label="input" type="text" name="name" />
-      {formValues.map((element, index) => (
-        <div className="form-inline" key={index}>
-          <label htmlFor="lift">Lift</label>
-          <select
-            onChange={(e) => handleChange(index, e)}
-            value={element.name}
-            name="lift"
-            required
-          >
-            <option value="">-Please select-</option>
-            <option value="shoulderPress">Shoulder Press</option>
-            <option value="benchPress">Bench Press</option>
-            <option value="squat">Squat</option>
-            <option value="deadlift">Deadlift</option>
-            <option value="row">Row</option>
-            <option value="splitsquat">Split squat</option>
-            <option value="lat">Lat Pulldown</option>
-            <option value="bicep">Bicep Curl</option>
-          </select>
-          <label>{`Weight (KGs)`}</label>
-          <input
-            required
-            type="number"
-            name="weight"
-            value={element.weight || ""}
-            onChange={(e) => handleChange(index, e)}
-          />
-          <label>Total reps</label>
-          <input
-            required
-            type="number"
-            name="reps"
-            value={element.reps || ""}
-            onChange={(e) => handleChange(index, e)}
-          />
-          {index ? (
-            <button
-              type="button"
-              className="button remove"
-              onClick={() => removeFormFields(index)}
-            >
-              Remove
-            </button>
-          ) : null}
-        </div>
-      ))}
+    <form className={`dropdown ${formStyle}`} onSubmit={handleSubmit}>
+      <input
+        required
+        aria-label="input"
+        type="text"
+        name="name"
+        placeholder="Workout name"
+      />
+      <div className="input-div">
+        {formValues.map((element, index) => (
+          <div className="form-inline" key={index}>
+            <div className="form-inline-subdiv">
+              <select
+                onChange={(e) => handleChange(index, e)}
+                value={element.name}
+                className="form-inline-lift"
+                name="lift"
+                required
+              >
+                <option value="">Choose lift</option>
+                <option value="shoulderPress">Shoulder Press</option>
+                <option value="benchPress">Bench Press</option>
+                <option value="squat">Squat</option>
+                <option value="deadlift">Deadlift</option>
+                <option value="row">Row</option>
+                <option value="splitsquat">Split squat</option>
+                <option value="lat">Lat Pulldown</option>
+                <option value="bicep">Bicep Curl</option>
+              </select>{" "}
+              <input
+                className="form-inline-reps"
+                required
+                type="number"
+                placeholder="reps"
+                name="reps"
+                value={element.reps || ""}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <input
+                required
+                placeholder="weight (kg)"
+                className="form-inline-weight"
+                type="number"
+                name="weight"
+                value={element.weight || ""}
+                onChange={(e) => handleChange(index, e)}
+              />
+            </div>
+            {true ? (
+              <button
+                type="button"
+                className="form-inline-remove"
+                onClick={() => removeFormFields(index)}
+              >
+                ❌
+              </button>
+            ) : null}
+          </div>
+        ))}
+      </div>
+
       <div className="button-section">
         <button
-          className="button add"
+          className="button-section__add"
           type="button"
           onClick={() => addFormFields()}
         >
-          Add
+          add lift ➕
         </button>
-        <button className="button submit" type="submit">
-          Submit
+        <button
+          className="button-section__submit"
+          type="submit"
+          aria-label="submit"
+        >
+          submit ✅
         </button>
       </div>
     </form>

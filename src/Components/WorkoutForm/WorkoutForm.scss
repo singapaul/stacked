@@ -1,0 +1,105 @@
+@use "../../Assets/SASS-variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+.dropdown {
+  color: #000000;
+  margin: 0;
+  font-size: 18px;
+  overflow: hidden;
+  height: 0px;
+  transition: height 0.3s ease;
+
+
+
+  
+}
+
+.active {
+  min-height: 50px;
+  height: 200px;
+  overflow: auto;
+  padding: $standard-padding;
+}
+
+.input-div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-inline-subdiv {
+  display: flex;
+  flex-direction: row;
+}
+
+.form-inline {
+  border-radius: 20px;
+  border: black 2px dashed;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  justify-content:space-between;
+  font-size: $font-size-default;
+  padding: $standard-padding;
+
+  .form-inline-lift {
+    width: 120px;
+    font-size: $font-size-default;
+  }
+
+  .form-inline-reps {
+    width: 90px;
+    font-size: $font-size-default;
+  }
+
+  .form-inline-weight {
+    width: 100px;
+    font-size: $font-size-default;
+  }
+
+  .form-inline-remove {
+    background: none;
+    border: none;
+    margin-right: 20px;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: $box-shadow-light;
+    }
+  }
+}
+
+.button-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px;
+  gap: 25px;
+
+  &__add {
+    background: none;
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 10px;
+    font-size: $font-size-default;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: $box-shadow-light;
+    }
+  }
+
+  &__submit {
+    background: #00c100;
+    color: white;
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 10px;
+    font-size: $font-size-default;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: $box-shadow-light;
+    }
+  }
+}

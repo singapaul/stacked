@@ -6,15 +6,15 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
 import Data from "../Data/Data";
-import Detail from "../DetailPage/Detail";
+import Dropdown from "../Formdropdown/Dropdown";
 import Greeting from "../Greeting/Greeting";
 import Grid from "../Grid/Grid";
+import "./Home.scss";
 
 const Home = () => {
   const [workouts, setWorkouts] = useState([]);
-  
+
   const getWorkouts = async () => {
     let url = "http://localhost:8080/allWorkouts";
     try {
@@ -32,9 +32,13 @@ const Home = () => {
   }, []);
   return (
     <>
-      <Greeting />
-      <Data />
-      <Grid workouts={workouts} />
+      <div className="home">
+        {" "}
+        <Greeting />
+        <Data />
+        <Dropdown />
+        <Grid workouts={workouts} />
+      </div>
     </>
   );
 };
