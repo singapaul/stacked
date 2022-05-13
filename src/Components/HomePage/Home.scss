@@ -1,3 +1,5 @@
 @use "../../Assets/SASS-variables.scss" as *;
 
-.home{background-image:$light-page-background-gradient};
+.home{  background-image: $light-card-background-gradient;
+padding-top: 20px};
+

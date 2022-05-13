@@ -1,3 +1,5 @@
+@use "../../Assets/SASS-variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 .navbar {
   width: 100%;
@@ -6,6 +8,8 @@
   position: sticky;
   top: 0;
   z-index: 10;
+  background-image: $light-page-background-gradient;
+  border-bottom: solid 2px black;
 
   &--active {
     height: 100vh;

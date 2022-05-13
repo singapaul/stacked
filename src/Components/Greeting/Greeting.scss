@@ -1,17 +1,30 @@
+@use "../../Assets/SASS-variables.scss" as *;
+
 .greeting {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   border: solid 2px black;
+  border-radius: $border-radius;
   align-items: center;
+  padding: $standard-padding;
+  font-family: $font-header;
+  background-image: $light-card-background-gradient;
+  margin:20px;
 
   .greeting__greet {
+    font-size: $font-size-default;
+  }
+
+  .greeting__name{
+    font-size: $font-size-large;
   }
 
   .greeting__photo {
     border-radius: 50%;
-    object-fit: cover;
-    height:105px;
-    width: 105px;
+    object-fit:cover;
+    object-position: top;
+    height:120px;
+    width:120px;
   }
 }

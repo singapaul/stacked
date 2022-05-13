@@ -1,15 +1,7 @@
 .Data {
-  display: grid;
-  border: 2px solid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
-  justify-content:center;
-  justify-items: center;
+  display: flex;
   align-items: center;
-  width: 400px;
-
-
-.Data__big{grid-area: 1/1/2/4;}
-
-
+  justify-content: space-between;
+  gap: 5px;
+margin: 20px;
 }

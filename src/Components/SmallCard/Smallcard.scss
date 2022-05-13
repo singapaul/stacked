@@ -1,23 +1,29 @@
+@use "../../Assets/SASS-variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
 .smallCard {
   height: 90px;
-  width: 100px;
+  width: 120px;
   border: solid 2px black;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  font-family: $font-header;
+  border-radius: $border-radius;
+  background-image: $light-card-background-gradient;
 
   .smallCard__icon {
     font-size: 2em;
   }
 
   .smallCard__desc {
-    font-size: 0.6em;
+    font-size: $font-size-tiny;
     font-weight: bold;
   }
 
   .smallCard__data {
-    font-size: 0.9em;
+    font-size: 0.4em;
   }
 }
 

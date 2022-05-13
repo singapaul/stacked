@@ -34,6 +34,7 @@ function App() {
           element={<Detail2 workoutArray={workouts} />}
         />
       </Routes>
+      <NavBar />
     </Router>
   );
 }
