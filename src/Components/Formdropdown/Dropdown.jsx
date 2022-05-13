@@ -6,17 +6,32 @@ import "./Dropdown.scss";
 const Dropdown = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const showForm = () => {
+  const showForm = (event) => {
     setShowDropdown(!showDropdown);
   };
 
-  const buttonText = showDropdown ? "Close" : "+ Workout";
+  const demoToLearn = () => {
+    console.log("pauls");
+  };
+
+  const closeButton = (
+    <button onClick={showForm} className="dropdown-wrapper__button-close">
+      Close
+    </button>
+  );
+
+  const postButton = (
+    <button onClick={showForm} className="dropdown-wrapper__button">
+      ➕ new workout
+    </button>
+  );
+
   return (
     <div className="dropdown-wrapper">
-      <button onClick={showForm} className="dropdown-wrapper__button">
-        {buttonText}
-      </button>
-      <WorkoutForm showDropdown={showDropdown} />
+      {showDropdown ? closeButton : postButton}
+      <div className="liftGrid">
+        <WorkoutForm demoFunc={showForm} showDropdown={showDropdown} />
+      </div>
     </div>
   );
 };

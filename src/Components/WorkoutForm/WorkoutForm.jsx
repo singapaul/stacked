@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./WorkoutForm.scss";
 
-const WorkoutForm = ({ showDropdown }) => {
+const WorkoutForm = ({ showDropdown, demoFunc }) => {
   const [formValues, setFormValues] = useState([
     { lift: "", weight: "", reps: "" },
   ]);
@@ -49,13 +49,22 @@ const WorkoutForm = ({ showDropdown }) => {
 
   return (
     <form className={`dropdown ${formStyle}`} onSubmit={handleSubmit}>
-      <input
-        required
-        aria-label="input"
-        type="text"
-        name="name"
-        placeholder="Workout name"
-      />
+      <div className="dropdown-container">
+        <label className="dropdown__workoutlabel" htmlFor="name">
+          Workout name{" "}
+        </label>
+        <textarea
+          rows="8"
+          name="name"
+          cols="50"
+          className="dropdown__workoutName"
+          aria-label="input"
+          required
+        >
+          Enter workout details
+        </textarea>
+      </div>
+
       <div className="input-div">
         {formValues.map((element, index) => (
           <div className="form-inline" key={index}>

@@ -4,32 +4,55 @@
 .dropdown {
   color: #000000;
   margin: 0;
-  font-size: 18px;
   overflow: hidden;
   height: 0px;
   transition: height 0.3s ease;
+  font-family: $font-header;
 
+  .dropdown-container {
+    border-radius: 20px;
+    border: black 2px dashed;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: $font-size-default;
+    padding: $standard-padding;
+    font-family: $font-header;
+    margin: 12px 0;
 
+    .dropdown__workoutName {
+      font-family: $font-header;
+      font-size: $font-size-smallest;
+      width: 250px;
+      height: 60px;
+    }
 
-  
+    .dropdown__workoutlabel {
+      font-size: $font-size-smallest;
+      font-weight: bold;
+    }
+  }
 }
 
 .active {
   min-height: 50px;
-  height: 200px;
+  height: 300px;
   overflow: auto;
   padding: $standard-padding;
 }
 
 .input-div {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(1px, 300px));
+  justify-content: center;
+  width: 100%;
+  gap: 2px;
+
 }
 
 .form-inline-subdiv {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .form-inline {
@@ -37,30 +60,36 @@
   border: black 2px dashed;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  justify-content:space-between;
+  justify-content: space-between;
   font-size: $font-size-default;
   padding: $standard-padding;
+  font-family: $font-header;
+
+
 
   .form-inline-lift {
-    width: 120px;
+    width: 220px;
     font-size: $font-size-default;
+    font-family: $font-header;
   }
 
   .form-inline-reps {
-    width: 90px;
+    width: 220px;
     font-size: $font-size-default;
+    font-family: $font-header;
   }
 
   .form-inline-weight {
-    width: 100px;
+    width: 220px;
     font-size: $font-size-default;
+    font-family: $font-header;
   }
 
   .form-inline-remove {
     background: none;
     border: none;
     margin-right: 20px;
+    font-family: $font-header;
 
     &:hover {
       cursor: pointer;
