@@ -1,0 +1,75 @@
+@use "../../Assets/SASS-variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+.Footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  grid-area: 1/-1;
+  height: 10vh;
+  border-top: 2px solid black;
+
+  &__message {
+    display: none;
+  }
+
+  &__links {
+    list-style: none;
+    font-family: $font-header;
+    padding: 0 5%;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    &-sectionLink {
+      display: inline;
+      font-size: 1.2rem;
+      text-decoration: none;
+      color: black;
+      margin: 0 3%;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .Footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    grid-area: 1/-1;
+    height: 10vh;
+    border-top: 2px solid black;
+
+    &__message {
+      display: flex;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-family: $font-header;
+      padding: 0 5%;
+      color: black;
+    }
+
+    &__links {
+      list-style: none;
+      font-family: $font-header;
+      padding: 0 5%;
+      white-space: nowrap;
+      margin-right: 5%;
+      width: auto;
+
+      &-sectionLink {
+        display: inline;
+        font-size: 1.2rem;
+        text-decoration: none;
+        color: black;
+        margin: 0 3%;
+      }
+    }
+  }
+}

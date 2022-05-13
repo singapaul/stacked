@@ -10,10 +10,6 @@ const Dropdown = () => {
     setShowDropdown(!showDropdown);
   };
 
-  const demoToLearn = () => {
-    console.log("pauls");
-  };
-
   const closeButton = (
     <button onClick={showForm} className="dropdown-wrapper__button-close">
       Close
@@ -21,7 +17,7 @@ const Dropdown = () => {
   );
 
   const postButton = (
-    <button onClick={showForm} className="dropdown-wrapper__button">
+    <button onClick={showForm} className="dropdown-wrapper__button-open">
       ➕ new workout
     </button>
   );

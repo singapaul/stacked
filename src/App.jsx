@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import NavBar from "./Components/NavBar/NavBar";
 import Home from "./Components/HomePage/Home";
 import Detail2 from "./Components/DetailPage/Detail2";
+import Footer from "./Components/Footer/Footer";
 const baseURL = "/stacked";
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
           element={<Detail2 workoutArray={workouts} />}
         />
       </Routes>
-      <NavBar />
+      <Footer />
     </Router>
   );
 }

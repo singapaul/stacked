@@ -3,22 +3,31 @@
 .dropdown-wrapper {
   border: solid 2px black;
   border-radius: $border-radius;
-  padding: $standard-padding;
+  // padding: $standard-padding;
   background-image: $light-card-background-gradient;
   display: flex;
-  margin:20px;
+  margin: 20px;
   flex-direction: column;
 
   .dropdown-wrapper__button {
     background: none;
     border-radius: 20px;
     border: 2px solid black;
-    padding: 10px;
     font-size: $font-size-small;
 
     &:hover {
       cursor: pointer;
       box-shadow: $box-shadow-light;
+    }
+
+    &-open {
+      background: none;
+      border: none;
+      font-size: 2em;
+    }
+
+    &-open:hover {
+      cursor: pointer;
     }
 
     &-close {
@@ -31,7 +40,7 @@
       margin-left: auto;
       margin-right: 20px;
       max-width: 70px;
+      margin-top: 10px;
     }
   }
 }
-

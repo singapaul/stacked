@@ -1,8 +1,6 @@
 import "./NavBar.scss";
-import logo from "../../Assets/assets/images/navbar-logo.png";
 import openMenu from "../../Assets/assets/svgs/hamburger-menu.svg";
 import closeMenu from "../../Assets/assets/svgs/close-menu.svg";
-import phone from "../../Assets/assets/svgs/phone.svg";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import useWindowSize from "../../hooks/useWindowSize.js";
@@ -45,8 +43,8 @@ const Navbar = () => {
   const navbarJSX = (
     <div className={navbarClass}>
       <div className="navbar__container">
-        <Link to="/">
-          <p>STCKED</p>
+        <Link className="navbar__container__item" to="/">
+          <p> STCKD</p>
         </Link>
 
         {windowIsDesktop ? (
