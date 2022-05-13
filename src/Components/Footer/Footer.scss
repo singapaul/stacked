@@ -10,6 +10,7 @@
   grid-area: 1/-1;
   height: 10vh;
   border-top: 2px solid black;
+  background-image: $light-page-background-gradient;
 
   &__message {
     display: none;

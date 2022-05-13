@@ -1,9 +1,142 @@
-.liftCard__lifts {
-  display: grid;
+@use "../../Assets/SASS-variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-  .liftCard__lifts-card {
-    height: 130px;
-    width: 230px;
-    border: 1px solid black;
+.workoutTitle {
+  font-family: $font-header;
+  font-size: $font-size-large;
+}
+
+.liftGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(1px, 300px));
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 15px;
+
+  .liftCard__lifts {
+    border-radius: 20px;
+    border: black 2px dashed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: $font-size-default;
+    padding: 20px;
+    font-family: $font-header;
+
+    .liftCard__lifts-lift {
+      width: 220px;
+      font-size: $font-size-default;
+      font-family: $font-header;
+    }
+
+    .liftCard__lifts-weight {
+      width: 220px;
+      font-size: $font-size-default;
+      font-family: $font-header;
+    }
+
+    .liftCard__lifts-reps {
+      width: 220px;
+      font-size: $font-size-default;
+      font-family: $font-header;
+    }
   }
+}
+
+.button-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  gap: 10px;
+
+  &__save {
+    background: #00c100;
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 5px;
+    font-size: $font-size-default;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: $box-shadow-light;
+    }
+  }
+
+  &__remove {
+    background: red;
+    color: white;
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 5px;
+    font-size: $font-size-default;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: $box-shadow-light;
+    }
+  }
+
+  &__add {
+    background: none;
+    color: black;
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 5px;
+    font-size: $font-size-default;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: $box-shadow-light;
+    }
+  }
+}
+
+.liftCard {
+  background-image: $light-card-background-gradient;
+  min-height: 90vh;
+  padding-top: 25px;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.extra-button-select {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  gap: 20px;
+
+  &__edit {
+    background: none;
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 10px;
+    width: 140px;
+    font-size: $font-size-default;
+  }
+
+  &__del {
+    background: red;
+    color: white;
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 10px;
+    width: 140px;
+    font-size: $font-size-default;
+  }
+}
+
+.metaData {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+
+  .workoutDate{align-self: center;}
 }

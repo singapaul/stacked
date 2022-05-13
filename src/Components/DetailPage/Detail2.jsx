@@ -93,89 +93,155 @@ const Detail2 = () => {
     }
   };
 
+  const dateString = workout.dateCreated.slice(0, 10);
+
   const displayWorkout = (
     <>
-      <p>{workout.workoutName}</p>
-      <div className="liftCard__lifts">
-        {workout.lifts.map((e, l) => {
+      <div className="metaData">
+        <h1 className="workoutTitle">{workout.workoutName}</h1>
+        <h3 className="workoutDate">{dateString}</h3>
+      </div>
+
+      <div className="liftGrid">
+        {inputList.map((x, i) => {
           return (
-            <div key={l}>
-              <p>lift id: {e.liftId}</p>
-              <p>Weight: {e.lift}</p>
-              <p>KGs: {e.weight}</p>
-              <p>Reps: {e.reps}</p>
+            <div key={i} className="liftCard__lifts">
+              <span>lift</span>
+              <input
+                disabled
+                name="lift"
+                placeholder="Select lift"
+                value={x.lift}
+                className="liftCard__lifts-lift"
+                onChange={(e) => handleInputChange(e, i)}
+              />
+              <span>weight (kg)</span>
+              <input
+                disabled
+                name="weight"
+                className="liftCard__lifts-weight"
+                placeholder="Enter weight"
+                value={x.weight}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+              <span>reps</span>
+              <input
+                disabled
+                name="reps"
+                className="liftCard__lifts-reps"
+                placeholder="Enter reps"
+                value={x.reps}
+                onChange={(e) => handleInputChange(e, i)}
+              />
             </div>
           );
         })}
       </div>
-      <div>+ lift</div>
-      <p>Workout ID: {workout.workoutId}</p>
-      <p>{workout.dateCreated}</p>
-      <button onClick={editForm}>edit</button>
+      <div className="extra-button-select">
+        {" "}
+        <button className="extra-button-select__edit" onClick={editForm}>
+          edit
+        </button>
+        <button
+          className="extra-button-select__del"
+          value={workout.workoutId}
+          onClick={deleteWorkout}
+        >
+          delete workout
+        </button>
+      </div>
     </>
   );
 
   const adjustWorkoutVTwo = (
-    <div className="App">
-      <h1>{workout.workoutName}</h1>
-      <p>{workout.workoutId}</p>
-      <form action="">
+    <>
+      <div className="metaData">
+        {" "}
+        <h1 className="workoutTitle">{workout.workoutName}</h1>
+        <h3 className="workoutDate">{dateString}</h3>
+      </div>
+
+      <div className="liftGrid">
         {inputList.map((x, i) => {
           return (
             <div key={i} className="liftCard__lifts">
+              <span>lift</span>
               <input
                 required
                 name="lift"
                 placeholder="Select lift"
                 value={x.lift}
+                className="liftCard__lifts-lift"
                 onChange={(e) => handleInputChange(e, i)}
               />
+              <span>weight (kg)</span>
               <input
                 required
-                className="ml10"
                 name="weight"
+                className="liftCard__lifts-weight"
                 placeholder="Enter weight"
                 value={x.weight}
                 onChange={(e) => handleInputChange(e, i)}
               />
+              <span>reps</span>
               <input
                 required
                 className="ml10"
                 name="reps"
+                className="liftCard__lifts-reps"
                 placeholder="Enter reps"
                 value={x.reps}
                 onChange={(e) => handleInputChange(e, i)}
               />
-              <div className="btn-box">
+              <div className="button-selection">
                 {inputList.length !== 1 && (
-                  <button className="mr10" onClick={(e) => handleSubmit(e, i)}>
+                  <button
+                    className="button-selection__save"
+                    onClick={(e) => handleSubmit(e, i)}
+                  >
                     Save
                   </button>
                 )}
                 {inputList.length !== 1 && (
-                  <button className="mr10" onClick={() => handleRemoveClick(i)}>
+                  <button
+                    className="button-selection__remove"
+                    onClick={() => handleRemoveClick(i)}
+                  >
                     Remove
                   </button>
                 )}
                 {inputList.length - 1 === i && (
-                  <button onClick={handleAddClick}>Add</button>
+                  <button
+                    className="button-selection__add"
+                    onClick={handleAddClick}
+                  >
+                    Add
+                  </button>
                 )}
               </div>
             </div>
           );
         })}
-      </form>
-      <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
-      <button onClick={editForm}>edit</button>
-      <button value={workout.workoutId} onClick={deleteWorkout}>
-        delete workout
-      </button>
-    </div>
+      </div>
+      <div className="extra-button-select">
+        {" "}
+        <button className="extra-button-select__edit" onClick={editForm}>
+          edit
+        </button>
+        <button
+          className="extra-button-select__del"
+          value={workout.workoutId}
+          onClick={deleteWorkout}
+        >
+          delete workout
+        </button>
+      </div>
+    </>
   );
 
   return (
     <div key={workout.id} className="liftCard">
-      {editMode ? displayWorkout : adjustWorkoutVTwo}
+      {editMode ? adjustWorkoutVTwo : displayWorkout}
     </div>
   );
 };
