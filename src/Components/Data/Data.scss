@@ -1,7 +1,16 @@
 .Data {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  justify-self: center;
   gap: 5px;
-margin: 20px;
+  width: 100%;
+}
+
+@media screen and (min-width: 1084px) {
+  .Data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }

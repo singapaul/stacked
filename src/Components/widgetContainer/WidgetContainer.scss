@@ -1,0 +1,17 @@
+@use "../../Assets/SASS-variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+.Widget {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media screen and (min-width: 1084px) {
+  .Widget {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    width: 100%;
+  }
+} ;

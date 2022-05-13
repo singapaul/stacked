@@ -6,10 +6,10 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
-import Data from "../Data/Data";
-import Dropdown from "../Formdropdown/Dropdown";
 import Greeting from "../Greeting/Greeting";
 import Grid from "../Grid/Grid";
+import WidgetContainer from "../widgetContainer/WidgetContainer";
+import Dropdown from "../Formdropdown/Dropdown";
 import "./Home.scss";
 
 const Home = () => {
@@ -30,12 +30,12 @@ const Home = () => {
   useEffect(() => {
     getWorkouts();
   }, []);
+
   return (
     <>
       <div className="home">
         {" "}
-        <Greeting />
-        <Data />
+        <WidgetContainer />
         <Dropdown />
         <Grid workouts={workouts} />
       </div>
