@@ -45,7 +45,7 @@ const WorkoutForm = ({ showDropdown, demoFunc }) => {
     console.log(data);
   };
 
-  const formStyle = showDropdown ? "active" : "";
+  const formStyle = showDropdown ? "activen" : "";
 
   return (
     <form className={`dropdown ${formStyle}`} onSubmit={handleSubmit}>

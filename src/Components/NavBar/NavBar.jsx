@@ -39,7 +39,7 @@ const Navbar = () => {
   );
 
   const menuIcon = showMenu ? closeMenu : openMenu;
-  const navbarClass = showMenu ? "navbar navbar--active" : "navbar";
+  const navbarClass = showMenu ? "navbar navbar--actived" : "navbar";
   const navbarJSX = (
     <div className={navbarClass}>
       <div className="navbar__container">
