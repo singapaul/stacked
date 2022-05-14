@@ -1,3 +1,4 @@
+import React from "react";
 import "./Greeting.scss";
 import paul from "../../Assets/paulrunning.jpg";
 
