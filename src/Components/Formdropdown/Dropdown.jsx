@@ -25,7 +25,7 @@ const Dropdown = () => {
   return (
     <div className="dropdown-wrapper">
       {showDropdown ? closeButton : postButton}
-      <div className="liftGrid">
+      <div>
         <WorkoutForm demoFunc={showForm} showDropdown={showDropdown} />
       </div>
     </div>

@@ -186,7 +186,6 @@ const Detail2 = () => {
               <span>reps</span>
               <input
                 required
-                className="ml10"
                 name="reps"
                 className="liftCard__lifts-reps"
                 placeholder="Enter reps"
